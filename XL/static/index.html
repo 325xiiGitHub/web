@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块君 v4.0 - 自建混合AI引擎</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar mc-panel">
+            <div class="sidebar-header">
+                <span class="mc-logo">⛏️</span>
+                <div class="header-info">
+                    <h1>方块君</h1>
+                    <span class="subtitle">自建混合AI引擎 v4.0</span>
+                </div>
+            </div>
+
+            <!-- 状态面板 -->
+            <div class="mc-status-card">
+                <div id="systemStatus" class="status-text">检测中...</div>
+            </div>
+
+            <!-- MC知识分类快捷入口 -->
+            <div class="mc-categories">
+                <h3 class="section-title">📖 知识分类</h3>
+                <div id="categoryGrid" class="cat-grid">
+                    <!-- JS动态加载 -->
+                    <div class="cat-placeholder">加载中...</div>
+                </div>
+            </div>
+
+            <!-- 知识库管理 -->
+            <div class="kb-section">
+                <h3 class="section-title">📚 知识库</h3>
+                
+                <div class="upload-area mc-upload" id="uploadArea">
+                    <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx" hidden multiple>
+                    <label for="fileInput" class="upload-label">
+                        <span class="upload-icon">📄</span>
+                        <span>上传文档扩展知识库</span>
+                        <small>TXT / MD / PDF / DOCX</small>
+                    </label>
+                    <div id="uploadProgress" class="upload-msg hidden"></div>
+                </div>
+
+                <div class="kb-stats-bar">
+                    <div class="stat-box">
+                        <span class="stat-num" id="docCount">0</span>
+                        <span class="stat-label">文档</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <span class="stat-num" id="chunkCount">0</span>
+                        <span class="stat-label">片段</span>
+                    </div>
+                </div>
+
+                <div class="file-list-scroll" id="fileList">
+                    <div class="empty-hint">暂无自定义文档</div>
+                </div>
+
+                <div class="kb-btns">
+                    <button id="refreshKbBtn" class="mc-btn mc-btn-sm mc-btn-secondary">刷新</button>
+                    <button id="clearKbBtn" class="mc-btn mc-btn-sm mc-btn-danger">重置</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主聊天区 -->
+        <main class="chat-main">
+            <header class="chat-header mc-topbar">
+                <div class="header-left">
+                    <h2 class="chat-title">💬 对话</h2>
+                    <label class="rag-toggle">
+                        <input type="checkbox" id="useRagToggle" checked>
+                        <span class="toggle-switch"></span>
+                        <span>知识库检索</span>
+                    </label>
+                </div>
+                <button id="clearChatBtn" class="mc-btn mc-btn-sm mc-btn-outline">清空对话</button>
+            </header>
+
+            <div id="messagesContainer" class="messages-area">
+                <div class="welcome-screen">
+                    <div class="welcome-block mc-block grass">
+                        <span class="welcome-emoji">⛏️</span>
+                        <h2>你好！我是方块君 v4.0</h2>
+                        <p>自建混合AI引擎 | A:MC规则引擎 + B:聊天模型 | 纯本地运行</p>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <p class="quick-label">试试问我：</p>
+                        <div class="quick-cards">
+                            <button class="quick-card mc-block stone" onclick="askQuick('如何合成钻石剑？')">⚔️ 钻石剑怎么合成？</button>
+                            <button class="quick-card mc-block dirt" onclick="askQuick('红石中继器怎么用')">⚡ 红石中继器用法</button>
+                            <button class="quick-card mc-block oak" onclick="askQuick('凋灵怎么召唤')">💀 召唤凋灵的方法</button>
+                            <button class="quick-card mc-block nether" onclick="askQuick('附魔台怎么获得最好的附魔')">✨ 最佳附魔技巧</button>
+                            <button class="quick-card mc-block ender" onclick="askQuick('末地城怎么找鞘翅')">🦅 寻找鞘翅攻略</button>
+                            <button class="quick-card mc-block water" onclick="askQuick('全自动农场怎么做')">🌾 自动农场设计</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-zone">
+                <form id="chatForm" class="input-row mc-input-row">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="输入你的问题..." 
+                        rows="1"
+                        autofocus
+                    ></textarea>
+                    <button type="submit" id="sendBtn" class="mc-send-btn" disabled title="发送 (Enter)">
+                        ➤
+                    </button>
+                </form>
+                <p class="input-tip">Enter 发送 · Shift+Enter 换行 · 支持多轮对话</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

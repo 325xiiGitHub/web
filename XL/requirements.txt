@@ -1,0 +1,23 @@
+# 方块君 v4.0 - 自建混合AI引擎
+# A: MC规则引擎 + B: 内置聊天模型
+# 无需任何外部LLM服务，纯本地运行
+
+# Web框架
+fastapi>=0.104.1
+uvicorn>=0.24.0
+
+# 配置管理
+python-dotenv>=1.0.0
+
+# HTTP客户端（API调用）
+httpx>=0.25.0
+
+# 知识库引擎 (BM25搜索)
+jieba>=0.42.1
+
+# 文档处理
+pypdf>=3.17.0
+python-docx>=1.1.0
+
+# 文件上传支持
+python-multipart>=0.0.6
